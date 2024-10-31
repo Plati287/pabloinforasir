@@ -28,16 +28,6 @@
             overflow: hidden;
         }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 60%);
-        }
-
         h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
@@ -95,47 +85,6 @@
         .novedad:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        .novedad.destacada {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-left: 5px solid #1a237e;
-            padding: 2.5rem;
-        }
-
-        .ultima-novedad {
-            position: relative;
-            border: 2px solid #1a237e;
-        }
-
-        .ultima-novedad::before {
-            content: "ÚLTIMA NOVEDAD";
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #1a237e;
-            color: white;
-            padding: 0.5rem 2rem;
-            border-bottom-left-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .novedad.destacada h3 {
-            font-size: 2rem;
-            color: #1a237e;
-            margin-top: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .novedad.destacada h3::before {
-            content: "📝";
-            font-size: 2.5rem;
         }
 
         .novedad h3 {
@@ -198,15 +147,6 @@
             .clock {
                 font-size: 2rem;
             }
-
-            .novedad.destacada h3 {
-                font-size: 1.5rem;
-            }
-
-            .ultima-novedad::before {
-                padding: 0.3rem 1rem;
-                font-size: 0.8rem;
-            }
         }
 
         /* Animaciones */
@@ -257,24 +197,17 @@
         const novedades = [
             {
                 titulo: "Examen de Hardware Unidad 2",
-                contenido: "Se ha programado el examen de Hardware correspondiente a la Unidad 2.",
+                contenido: "Descarga el examen de Hardware en formato ODT.",
                 fecha: "2024-11-07",
-                destacada: false,
+                archivo: "examen_hardware.odt",
                 tags: ["Importante", "Evaluación", "Hardware"]
             },
-
             {
-                titulo: "Ejercicio de entornos de desarrollo",
-                contenido: "Ejercicio pendiente pizarra profesor en entornos",
-                fecha: "2024-10-31",
-                destacada: false,
-                tags: ["Importante", "Evaluación", "Entornos"]
-                <a href="entornos.odt">Descargar</a>
-
-            },
-            
-           
-            
+                titulo: "Aviso General",
+                contenido: "Este es un aviso general sin archivo adjunto.",
+                fecha: "2024-11-01",
+                tags: ["Información"]
+            }
         ];
 
         function mostrarNovedades() {
@@ -282,18 +215,19 @@
             
             novedades.forEach((novedad, index) => {
                 const elemento = document.createElement('div');
-                let clases = ['novedad'];
-                if (novedad.destacada) clases.push('destacada');
-                if (novedad.ultima) clases.push('ultima-novedad');
-                elemento.className = clases.join(' ');
-                
+                elemento.className = 'novedad';
+
                 let tagsHTML = '';
                 if (novedad.tags) {
                     tagsHTML = novedad.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ');
                 }
 
+                const tituloHTML = novedad.archivo
+                    ? `<h3><a href="${novedad.archivo}" download>${novedad.titulo}</a></h3>`
+                    : `<h3>${novedad.titulo}</h3>`;
+
                 elemento.innerHTML = `
-                    <h3>${novedad.titulo}</h3>
+                    ${tituloHTML}
                     <p>${novedad.contenido}</p>
                     <p class="fecha">${formatearFecha(novedad.fecha)}</p>
                     ${tagsHTML}
