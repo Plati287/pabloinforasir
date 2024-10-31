@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Últimas Novedades</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .novedades {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .novedad {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .novedad:hover {
+            transform: translateY(-5px);
+        }
+
+        .novedad h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .novedad p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .fecha {
+            color: #3498db;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .novedades {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Últimas Novedades</h1>
+        <p>Mantente actualizado con las últimas noticias</p>
+    </header>
+
+    <div class="container">
+        <div class="novedades" id="novedades-container">
+            <!-- Las novedades se cargarán dinámicamente -->
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo
+        const novedades = [
+            {
+                titulo: "Nueva tecnología revoluciona la industria",
+                contenido: "Una innovadora tecnología está transformando la manera en que trabajamos y vivimos. Los expertos predicen que este avance marcará un antes y después en nuestra sociedad.",
+                fecha: "2024-10-31"
+            },
+            {
+                titulo: "Resultados del campeonato mundial",
+                contenido: "Los últimos resultados del campeonato mundial han sorprendido a todos los aficionados. La final se decidió en los últimos minutos con un resultado inesperado.",
+                fecha: "2024-10-30"
+            },
+            {
+                titulo: "Festival de arte contemporáneo",
+                contenido: "El festival de arte más importante del año abre sus puertas con una exposición única que reúne obras de los artistas más destacados del momento.",
+                fecha: "2024-10-29"
+            },
+            {
+                titulo: "Avances en inteligencia artificial",
+                contenido: "Nuevos desarrollos en IA prometen revolucionar múltiples sectores. Los últimos avances permiten aplicaciones nunca antes vistas en medicina y educación.",
+                fecha: "2024-10-28"
+            }
+        ];
+
+        function mostrarNovedades() {
+            const container = document.getElementById('novedades-container');
+            
+            novedades.forEach(novedad => {
+                const elemento = document.createElement('div');
+                elemento.className = 'novedad';
+                elemento.innerHTML = `
+                    <h3>${novedad.titulo}</h3>
+                    <p>${novedad.contenido}</p>
+                    <p class="fecha">${formatearFecha(novedad.fecha)}</p>
+                `;
+                container.appendChild(elemento);
+            });
+        }
+
+        function formatearFecha(fecha) {
+            return new Date(fecha).toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Cargar las novedades al iniciar la página
+        document.addEventListener('DOMContentLoaded', mostrarNovedades);
+    </script>
+</body>
+</html>
